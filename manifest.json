@@ -1,0 +1,41 @@
+{
+    "name": "Dark Task Manager",
+    "short_name": "DarkTasks",
+    "description": "A minimal dark-themed productivity To-Do app for students",
+    "start_url": ".",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#121212",
+    "theme_color": "#3B82F6",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icons/icon-192.svg",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-512.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "productivity",
+        "utilities"
+    ]
+}
