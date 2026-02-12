@@ -1064,27 +1064,52 @@
     });
 
     // ---- PWA: Offline / Online Detection ----
-    const offlineIndicator = document.getElementById('offline-indicator');
+    const connectionToast = document.getElementById('connection-toast');
+    const headerOfflineIcon = document.getElementById('header-offline-icon');
+    let connectionTimer;
 
-    function updateOnlineStatus() {
+    function showConnectionToast(msg, type) {
+        if (!connectionToast) return;
+
+        // Clear previous state
+        connectionToast.className = 'connection-toast';
+        connectionToast.classList.add(type === 'online' ? 'toast-online' : 'toast-offline');
+        connectionToast.textContent = msg;
+
+        // Show
+        requestAnimationFrame(() => {
+            connectionToast.classList.add('show');
+        });
+
+        // Clear previous timer
+        if (connectionTimer) clearTimeout(connectionTimer);
+
+        // Auto hide
+        const duration = type === 'online' ? 2000 : 3000;
+        connectionTimer = setTimeout(() => {
+            connectionToast.classList.remove('show');
+        }, duration);
+    }
+
+    function updateConnectionStatus() {
         if (navigator.onLine) {
-            if (offlineIndicator) offlineIndicator.classList.add('hidden');
+            if (headerOfflineIcon) headerOfflineIcon.classList.add('hidden');
         } else {
-            if (offlineIndicator) offlineIndicator.classList.remove('hidden');
+            if (headerOfflineIcon) headerOfflineIcon.classList.remove('hidden');
         }
     }
 
     window.addEventListener('online', () => {
-        updateOnlineStatus();
-        showToast('Back online ✅');
+        updateConnectionStatus();
+        showConnectionToast('Back online ✓', 'online');
     });
 
     window.addEventListener('offline', () => {
-        updateOnlineStatus();
-        showToast('You are offline 📡');
+        updateConnectionStatus();
+        showConnectionToast('You are offline. Changes will sync when connection is restored.', 'offline');
     });
 
     // Check on load
-    updateOnlineStatus();
+    updateConnectionStatus();
 
 })();
