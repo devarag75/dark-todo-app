@@ -1063,53 +1063,6 @@
         }
     });
 
-    // ---- PWA: Offline / Online Detection ----
-    const connectionToast = document.getElementById('connection-toast');
-    const headerOfflineIcon = document.getElementById('header-offline-icon');
-    let connectionTimer;
 
-    function showConnectionToast(msg, type) {
-        if (!connectionToast) return;
-
-        // Clear previous state
-        connectionToast.className = 'connection-toast';
-        connectionToast.classList.add(type === 'online' ? 'toast-online' : 'toast-offline');
-        connectionToast.textContent = msg;
-
-        // Show
-        requestAnimationFrame(() => {
-            connectionToast.classList.add('show');
-        });
-
-        // Clear previous timer
-        if (connectionTimer) clearTimeout(connectionTimer);
-
-        // Auto hide
-        const duration = type === 'online' ? 2000 : 3000;
-        connectionTimer = setTimeout(() => {
-            connectionToast.classList.remove('show');
-        }, duration);
-    }
-
-    function updateConnectionStatus() {
-        if (navigator.onLine) {
-            if (headerOfflineIcon) headerOfflineIcon.classList.add('hidden');
-        } else {
-            if (headerOfflineIcon) headerOfflineIcon.classList.remove('hidden');
-        }
-    }
-
-    window.addEventListener('online', () => {
-        updateConnectionStatus();
-        showConnectionToast('Back online ✓', 'online');
-    });
-
-    window.addEventListener('offline', () => {
-        updateConnectionStatus();
-        showConnectionToast('You are offline. Changes will sync when connection is restored.', 'offline');
-    });
-
-    // Check on load
-    updateConnectionStatus();
 
 })();
